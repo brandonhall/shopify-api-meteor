@@ -24,6 +24,8 @@ or provide test coverage.
 2. Set the return URL in your partner account to your success url in the `client.js` file
 2. Supports `params` as on options object called from the client
 
+**TODO:** Better error handling in `client.js`
+
 **TODO:** Support more of the Shopify API
 
 **TODO:** Add test coverage
