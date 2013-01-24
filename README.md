@@ -18,5 +18,6 @@ or provide test coverage.
 2. Edit the `apiKey` and `secret` variables
 3. See example.js for implementation instructions
 
-TODO: Support more of the Shopify API
-TODO: Add test coverage
+**TODO:** Support more of the Shopify API
+
+**TODO:** Add test coverage
