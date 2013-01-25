@@ -48,16 +48,11 @@ Meteor.methods({
 
     shopifyCustomerFetch: function(options) {
         var endpoint = Meteor.call('shopifyEndpoints').customer + options.id + '.json';
-
-        debugger;
-
         var res = Meteor.call('shopifyFetch', endpoint, options);
 
         if(res.customer) {
-            debugger;
             return res.customer;
         } else {
-            debugger;
             return new Meteor.Error(res);
         }
     },
