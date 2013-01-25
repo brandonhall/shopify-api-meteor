@@ -6,6 +6,17 @@ Meteor.methods({
         }
     },
 
+    shopifyEndpoints: function() {
+        return {
+            customer: '/admin/customers/',
+            customers: '/admin/customers.json',
+            customersCount: '/admin/customers/count.json',
+            customersSearch: '/admin/customers/search.json',
+            orders: '/admin/orders.json',
+            ordersCount: '/admin/orders/count.json'
+        }
+    },
+
     shopifyAuth: function(code, shopName) {
         if(!shopName || !code) {
             throw new Meteor.Error('400', 'Params missing for shopifyAuth');
@@ -35,8 +46,35 @@ Meteor.methods({
         }
     },
 
+    shopifyCustomerFetch: function(options) {
+        var endpoint = Meteor.call('shopifyEndpoints').customer + options.id + '.json';
+
+        debugger;
+
+        var res = Meteor.call('shopifyFetch', endpoint, options);
+
+        if(res.customer) {
+            debugger;
+            return res.customer;
+        } else {
+            debugger;
+            return new Meteor.Error(res);
+        }
+    },
+
     shopifyCustomersFetch: function(options) {
-        var endpoint = '/admin/customers.json';
+        var endpoint = Meteor.call('shopifyEndpoints').customers;
+        var res = Meteor.call('shopifyFetch', endpoint, options);
+
+        if(res.customers) {
+            return res.customers;
+        } else {
+            return new Meteor.Error(res);
+        }
+    },
+
+    shopifyCustomersSearch: function(options) {
+        var endpoint = Meteor.call('shopifyEndpoints').customerSearch;
         var res = Meteor.call('shopifyFetch', endpoint, options);
 
         if(res.customers) {
@@ -47,7 +85,7 @@ Meteor.methods({
     },
 
     shopifyCustomersCount: function(options) {
-        var endpoint = '/admin/customers/count.json';
+        var endpoint = Meteor.call('shopifyEndpoints').customersCount;
         var res = Meteor.call('shopifyFetch', endpoint, options);
 
         if(res.count) {
@@ -58,7 +96,7 @@ Meteor.methods({
     },
 
     shopifyOrdersFetch: function(options) {
-        var endpoint = '/admin/orders.json';
+        var endpoint = Meteor.call('shopifyEndpoints').orders;
         var res = Meteor.call('shopifyFetch', endpoint, options);
 
         if(res.orders) {
@@ -69,7 +107,7 @@ Meteor.methods({
     },
 
     shopifyOrdersCount: function(options) {
-        var endpoint = '/admin/orders/count.json';
+        var endpoint = Meteor.call('shopifyEndpoints').orders;
         var res = Meteor.call('shopifyFetch', endpoint, options);
 
         if(res.count) {
