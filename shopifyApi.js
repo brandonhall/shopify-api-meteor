@@ -33,7 +33,7 @@ Meteor.methods({
         var res = Meteor.http.post(url, { params: data });
 
         if(res.statusCode === 200) {
-            Meteor.users.update({}, {$push: { shopify: { token: res.data.access_token, shop: shopName }}});
+            Meteor.users.update({ _id: this.userId }, {$push: { shopify: { token: res.data.access_token, shop: shopName }}});
         } else {
             throw new Meteor.Error('503', 'Shopify authorization failed');
         }
@@ -118,7 +118,7 @@ Meteor.methods({
             apiUrl = 'https://' + shop + endpoint;
 
         if(!shop || !token || !apiUrl) {
-            throw new Meteor.Error('400', 'Missing parameter for shopifyCustomers');
+            throw new Meteor.Error('400', 'Missing parameter for Shopify API call');
         }
 
         this.unblock();
